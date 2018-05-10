@@ -1,0 +1,50 @@
+<h1>Rule Specifications</h1>
+
+<p *ngIf="!gridView"><em>Loading...</em></p>
+
+<select (click)="filterDomain()">Select Domain</select>
+
+<kendo-grid [data]="gridView"
+            [filterable]="true"
+            [pageable]="{
+                  buttonCount: buttonCount,
+                  info: info,
+                  type: type,
+                  pageSizes: pageSizes,
+                  previousNext: previousNext
+                }"
+            [scrollable]="false"
+            [sortable]="{
+                allowUnsort: allowUnsort,
+                mode: multiple ? 'multiple' : 'single'
+                }"
+            [filter]="gridState.filter"
+            [pageSize]="gridState.take"
+            [skip]="gridState.skip"
+            [sort]="gridState.sort"
+            (dataStateChange)="dataStateChange($event)"
+            (edit)="editHandler($event)"
+            (cancel)="cancelHandler($event)"
+            (save)="saveHandler($event)"
+            (remove)="removeHandler($event)"
+            (add)="addHandler($event)">
+    <ng-template kendoGridToolbarTemplate>
+        <button kendoGridAddCommand>Add New RuleSpecification</button>
+    </ng-template>
+    <kendo-grid-column field="ruleSpecificationId" title="Id" [editable]="false" [hidden]="true"></kendo-grid-column>
+    <kendo-grid-column field="domain" title="Domain"></kendo-grid-column>
+    <kendo-grid-column field="ruleSpecificationClass" title="Rule Specification Class"></kendo-grid-column>
+    <kendo-grid-column field="ruleSpecificationName" title="Rule Specification Name"></kendo-grid-column>
+    <kendo-grid-column field="defaultValue" title="DefaultValue" width="150"></kendo-grid-column>
+    <kendo-grid-command-column title="Actions" width="220">
+        <ng-template kendoGridCellTemplate let-isNew="isNew">
+            <button kendoGridEditCommand class="k-primary">Edit</button>
+            <button kendoGridRemoveCommand>Remove</button>
+            <button kendoGridSaveCommand [disabled]="formGroup?.invalid">{{ isNew ? 'Add' : 'Update' }}</button>
+            <button kendoGridCancelCommand>{{ isNew ? 'Discard changes' : 'Cancel' }}</button>
+        </ng-template>
+    </kendo-grid-command-column>
+    <!--<div *kendoGridDetailTemplate="let dataItem">
+        <rulespecification-specifications [ruleSpecification]="dataItem"></rulespecification-specifications>
+    </div>-->
+</kendo-grid>

@@ -1,0 +1,9 @@
+﻿.k-button {
+    font-size: 9px;
+}
+
+.k-grid-add-command {
+    background-color: #AAAAFF;
+    background-image: linear-gradient(#BBBBFF,#AAAAFF);
+    color: #000000;
+}
